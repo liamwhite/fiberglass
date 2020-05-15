@@ -116,7 +116,7 @@ Open3.popen2(
     end
 
     if index == 2
-      program_stderr = Base64.strict_decode64(line) if index == 1
+      program_stderr = Base64.strict_decode64(line)
       next
     end
 
