@@ -19,8 +19,8 @@ extnames = {
   ".png"  => ".png",
   ".svg"  => ".svg",
   ".webm" => ".webm",
-  ".webp" => ".webp"
-  ".mp4"  => ".mp4",
+  ".webp" => ".webp",
+  ".mp4"  => ".mp4"
 }
 
 # Set unknown extensions to empty string instead of using them
@@ -61,6 +61,7 @@ Open3.popen2(
   "--cpus=2",
   "-i",
   image_hash,
+  "ruby",
   "/opt/input.rb"
 ) do |stdin, stdout|
   # Generate invocation. Note that arguments are passed to the container over
@@ -102,6 +103,8 @@ Open3.popen2(
   # ...
 
   stdout.each_line.with_index do |line, index|
+    line.chomp!
+
     if index == 0
       exit_status = line.to_i
       next

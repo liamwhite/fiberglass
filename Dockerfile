@@ -43,5 +43,8 @@ RUN cd /opt/cli_intensities \
 RUN cd /opt/mediatools \
     && make install
 
+# Add safe-rsvg-convert
+COPY safe-rsvg-convert /usr/local/bin/safe-rsvg-convert
+
 # Add input parser script
 COPY input.rb /opt/input.rb

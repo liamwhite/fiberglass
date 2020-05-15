@@ -9,6 +9,8 @@ files = []
 
 # Parse input
 $stdin.each_line.with_index do |line, index|
+  line.chomp!
+
   if index == 0
     progname = Base64.strict_decode64(line)
     next
@@ -31,13 +33,13 @@ stdout, stderr, status = Open3.capture3(progname, *args)
 $stdout.write status.exitstatus
 $stdout.write "\n"
 
-$stdout.write Base.strict_encode64(stdout)
+$stdout.write Base64.strict_encode64(stdout)
 $stdout.write "\n"
 
-$stdout.write Base.strict_encode64(stderr)
+$stdout.write Base64.strict_encode64(stderr)
 $stdout.write "\n"
 
 files.each do |file|
-  $stdout.write Base.strict_encode64(File.read(file))
+  $stdout.write Base64.strict_encode64(File.read(file))
   $stdout.write "\n"
 end
