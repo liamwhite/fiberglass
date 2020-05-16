@@ -33,7 +33,7 @@ RUN cd /opt/FFmpeg \
       --disable-static \
       --disable-librtmp \
       --enable-libopus \
-    && make install
+    && make -j4 install
 
 # build cli_intensities
 RUN cd /opt/cli_intensities \
