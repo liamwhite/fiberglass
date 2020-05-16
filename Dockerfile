@@ -43,6 +43,11 @@ RUN cd /opt/cli_intensities \
 RUN cd /opt/mediatools \
     && make install
 
+# Set up unprivileged user account
+RUN addgroup -S fiberglass \
+    && adduser -S -G fiberglass fiberglass
+USER fiberglass
+
 # Add safe-rsvg-convert
 COPY safe-rsvg-convert /usr/local/bin/safe-rsvg-convert
 
