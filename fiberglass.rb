@@ -8,9 +8,6 @@ program =
   else "docker"
   end
 
-# Whitelist image name to alphanumeric characters only
-image_hash = ENV["DOCKER_IMAGE_HASH"].to_s.gsub(/[^a-zA-Z0-9]+/, "")
-
 # Whitelist of valid extensions
 extnames = {
   ".gif"  => ".gif",
@@ -53,14 +50,9 @@ program_stderr = ""
 
 Open3.popen2(
   program,
-  "run",
-  "--rm",
-  "--network",
-  "none",
-  "--memory=1g",
-  "--cpus=2",
+  "exec",
   "-i",
-  image_hash,
+  "fiberglass_container",
   "ruby",
   "/opt/input.rb"
 ) do |stdin, stdout|

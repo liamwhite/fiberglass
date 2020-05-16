@@ -1,7 +1,12 @@
 require 'open3'
 require 'base64'
+require 'fileutils'
 
 # Container-side script. Can be more lax here.
+
+cwd = "/tmp/#{Process.pid}-#{Time.now.to_i}"
+FileUtils.mkdir_p(cwd)
+FileUtils.cd(cwd)
 
 progname = nil
 args = []
@@ -43,3 +48,6 @@ files.each do |file|
   $stdout.write Base64.strict_encode64(File.read(file))
   $stdout.write "\n"
 end
+
+FileUtils.cd("/")
+FileUtils.rm_rf(cwd)

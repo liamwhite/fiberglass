@@ -48,3 +48,6 @@ COPY safe-rsvg-convert /usr/local/bin/safe-rsvg-convert
 
 # Add input parser script
 COPY input.rb /opt/input.rb
+
+# Sleep forever (to allow container to continue to run)
+CMD ["sleep", "infinity"]

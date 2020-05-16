@@ -9,9 +9,9 @@ Keeping up to date with bugfixes and improvements in image processing programs c
 Fiberglass also helps to minimize the available attack surface to RCE takeover, DoS, and RFIs in the event of a full program compromise:
 
 - No host paths are mounted in the volume beyond the Docker defaults
-- CPU core access is restricted to 2 per spawned container
-- Memory access is restricted to 1GB per spawned container
-- No network interface is created for spawned containers
+- CPU core access is restricted to 8 for the spawned container
+- Memory access is restricted to 4GB for the spawned container
+- No network interface is created for the spawned container
 - Output is buffered, not streamed
 
 ## Provided programs
