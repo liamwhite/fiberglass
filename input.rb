@@ -23,7 +23,7 @@ $stdin.each_line.with_index do |line, index|
 
   name, contents = line.split(":")
   files << name
-  File.write(name, Base64.strict_decode64(contents))
+  File.write(name, Base64.strict_decode64(contents.to_s))
 end
 
 # Run command
