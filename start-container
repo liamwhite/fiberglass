@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This program is intended to be run as a systemd user unit.
 
-"$DOCKER_PROGRAM" run --rm --name fiberglass_container --network none --memory=4g --cpus=8 --pids-limit 128 -i "$DOCKER_IMAGE_HASH"
+"$DOCKER_PROGRAM" run --rm --name fiberglass_container --network none --memory=4g --cpus=8 --pids-limit 8192 -i "$DOCKER_IMAGE_HASH"
