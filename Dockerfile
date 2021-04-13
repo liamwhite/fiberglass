@@ -5,8 +5,8 @@ RUN apk update \
     x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby
 
 # build FFmpeg
-ADD https://api.github.com/repos/derpibooru/FFmpeg/git/refs/heads/master /tmp/FFmpeg_version.json
-RUN git clone https://github.com/derpibooru/FFmpeg /opt/FFmpeg \
+ADD https://api.github.com/repos/philomena-dev/FFmpeg/git/refs/heads/release/4.4 /tmp/FFmpeg_version.json
+RUN git clone https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
     && cd /opt/FFmpeg \
     && ./configure \
       --prefix=/usr \
@@ -26,17 +26,18 @@ RUN git clone https://github.com/derpibooru/FFmpeg /opt/FFmpeg \
       --disable-static \
       --disable-librtmp \
       --enable-libopus \
-    && make -j4 install
+    && make -j$(nproc) install
 
 # build cli_intensities
-ADD https://api.github.com/repos/derpibooru/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
-RUN git clone https://github.com/derpibooru/cli_intensities /opt/cli_intensities \
+ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
+RUN git clone https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
+    && git checkout 0ca66bed069d8d4b4a0a57b2c3db98e9c8f8da69 \
     && make install
 
 # build mediatools
-ADD https://api.github.com/repos/derpibooru/mediatools/git/refs/heads/master /tmp/mediatools_version.json
-RUN git clone https://github.com/derpibooru/mediatools /opt/mediatools \
+ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
+RUN git clone https://github.com/philomena-dev/mediatools /opt/mediatools \
     && cd /opt/mediatools \
     && make install
 
