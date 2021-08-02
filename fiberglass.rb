@@ -17,7 +17,8 @@ extnames = {
   ".svg"  => ".svg",
   ".webm" => ".webm",
   ".webp" => ".webp",
-  ".mp4"  => ".mp4"
+  ".mp4"  => ".mp4",
+  ".icc"  => ".icc"
 }
 
 # Set unknown extensions to empty string instead of using them
