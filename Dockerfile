@@ -33,13 +33,14 @@ ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/ma
 RUN git clone https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
     && git checkout 0ca66bed069d8d4b4a0a57b2c3db98e9c8f8da69 \
-    && make install
+    && make -j$(nproc) install
 
 # build mediatools
 ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
 RUN git clone https://github.com/philomena-dev/mediatools /opt/mediatools \
+    && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
-    && make install
+    && make -j$(nproc) install
 
 # Set up unprivileged user account
 RUN addgroup -S fiberglass \
