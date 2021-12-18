@@ -6,7 +6,7 @@ RUN apk update \
 
 # build FFmpeg
 ADD https://api.github.com/repos/philomena-dev/FFmpeg/git/refs/heads/release/4.4 /tmp/FFmpeg_version.json
-RUN git clone https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
+RUN git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
     && cd /opt/FFmpeg \
     && ./configure \
       --prefix=/usr \
@@ -30,14 +30,14 @@ RUN git clone https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
 
 # build cli_intensities
 ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
-RUN git clone https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
+RUN git clone --depth 1 https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
     && git checkout 0ca66bed069d8d4b4a0a57b2c3db98e9c8f8da69 \
     && make -j$(nproc) install
 
 # build mediatools
 ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
-RUN git clone https://github.com/philomena-dev/mediatools /opt/mediatools \
+RUN git clone --depth 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
     && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
     && make -j$(nproc) install
