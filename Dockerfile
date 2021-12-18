@@ -32,7 +32,7 @@ RUN git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
 ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
 RUN git clone --depth 1 https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
-    && git checkout 0ca66bed069d8d4b4a0a57b2c3db98e9c8f8da69 \
+    && git checkout 669da39077038bb099e3d57f27c4716aad77563d \
     && make -j$(nproc) install
 
 # build mediatools
