@@ -1,12 +1,13 @@
 FROM alpine:latest
 
-RUN apk update \
-    && apk add imagemagick file-dev libpng-dev libjpeg-turbo-utils optipng gifsicle librsvg build-base git \
-    x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby
-
-# build FFmpeg
 ADD https://api.github.com/repos/philomena-dev/FFmpeg/git/refs/heads/release/4.4 /tmp/FFmpeg_version.json
-RUN git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
+ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
+ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
+
+RUN apk update \
+    && apk add imagemagick file file-dev libpng-dev libjpeg-turbo-utils optipng gifsicle librsvg build-base git \
+       x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby ffmpeg \
+    && git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
     && cd /opt/FFmpeg \
     && ./configure \
       --prefix=/usr \
@@ -26,21 +27,20 @@ RUN git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
       --disable-static \
       --disable-librtmp \
       --enable-libopus \
-    && make -j$(nproc) install
-
-# build cli_intensities
-ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
-RUN git clone --depth 1 https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
+    && make -j$(nproc) install \
+    && git clone --depth 1 https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
-    && git checkout 669da39077038bb099e3d57f27c4716aad77563d \
-    && make -j$(nproc) install
-
-# build mediatools
-ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
-RUN git clone --depth 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
+    && git checkout 401639cdd9a46a89a9f8491c69258bc84d4c0c4b \
+    && make -j$(nproc) install \
+    && git clone --depth 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
     && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
-    && make -j$(nproc) install
+    && git checkout a292ea2bee8a661d84c8e7eaea88b86d1b6c4dc5 \
+    && make -j$(nproc) install \
+    && rm -rf /opt/cli_intensities \
+    && rm -rf /opt/mediatools \
+    && rm -rf /opt/FFmpeg \
+    && apk del file-dev build-base git x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev
 
 # Set up unprivileged user account
 RUN addgroup -S fiberglass \
