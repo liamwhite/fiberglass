@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ADD https://api.github.com/repos/philomena-dev/FFmpeg/git/refs/heads/release/4.4 /tmp/FFmpeg_version.json
+ADD https://api.github.com/repos/philomena-dev/FFmpeg/git/refs/heads/release/5.1 /tmp/FFmpeg_version.json
 ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/master /tmp/cli_intensities_version.json
 ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
 
@@ -11,7 +11,6 @@ RUN apk update \
     && cd /opt/FFmpeg \
     && ./configure \
       --prefix=/usr \
-      --enable-avresample \
       --enable-avfilter \
       --enable-gpl \
       --enable-libmp3lame \
@@ -35,7 +34,7 @@ RUN apk update \
     && git clone --depth 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
     && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
-    && git checkout a292ea2bee8a661d84c8e7eaea88b86d1b6c4dc5 \
+    && git checkout bec31dcf2b341efaa6f26e62c128180b8070e129 \
     && make -j$(nproc) install \
     && rm -rf /opt/cli_intensities \
     && rm -rf /opt/mediatools \
