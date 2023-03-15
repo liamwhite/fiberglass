@@ -27,14 +27,14 @@ RUN apk update \
       --disable-librtmp \
       --enable-libopus \
     && make -j$(nproc) install \
-    && git clone --depth 1 https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
+    && git clone https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
     && git checkout 401639cdd9a46a89a9f8491c69258bc84d4c0c4b \
     && make -j$(nproc) install \
-    && git clone --depth 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
+    && git clone 1 https://github.com/philomena-dev/mediatools /opt/mediatools \
     && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
-    && git checkout bec31dcf2b341efaa6f26e62c128180b8070e129 \
+    && git checkout 670d3bbcf2ce33e077ec247daa740f4c6c200539 \
     && make -j$(nproc) install \
     && rm -rf /opt/cli_intensities \
     && rm -rf /opt/mediatools \
