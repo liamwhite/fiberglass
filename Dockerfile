@@ -6,7 +6,7 @@ ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master 
 
 RUN apk update \
     && apk add imagemagick file file-dev libpng-dev libjpeg-turbo-utils optipng gifsicle librsvg build-base git \
-       x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby ffmpeg \
+       x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby ffmpeg rsvg-convert \
     && git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
     && cd /opt/FFmpeg \
     && ./configure \
