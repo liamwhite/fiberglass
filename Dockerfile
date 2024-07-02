@@ -5,7 +5,7 @@ ADD https://api.github.com/repos/philomena-dev/cli_intensities/git/refs/heads/ma
 ADD https://api.github.com/repos/philomena-dev/mediatools/git/refs/heads/master /tmp/mediatools_version.json
 
 RUN apk update \
-    && apk add imagemagick file file-dev libpng-dev libjpeg-turbo-utils optipng gifsicle librsvg build-base git \
+    && apk add imagemagick file file-dev libjpeg-turbo-dev libpng-dev libjpeg-turbo-utils optipng gifsicle librsvg build-base git \
        x264-dev x265-dev libvpx-dev lame-dev opus-dev libvorbis-dev yasm ruby ffmpeg rsvg-convert \
     && git clone --depth 1 https://github.com/philomena-dev/FFmpeg /opt/FFmpeg \
     && cd /opt/FFmpeg \
@@ -29,12 +29,12 @@ RUN apk update \
     && make -j$(nproc) install \
     && git clone https://github.com/philomena-dev/cli_intensities /opt/cli_intensities \
     && cd /opt/cli_intensities \
-    && git checkout 401639cdd9a46a89a9f8491c69258bc84d4c0c4b \
+    && git checkout 7cbf563ddc22b4b67f6c1dc87a9aa8871075ef00 \
     && make -j$(nproc) install \
     && git clone https://github.com/philomena-dev/mediatools /opt/mediatools \
     && ln -s /usr/lib/librsvg-2.so.2 /usr/lib/librsvg-2.so \
     && cd /opt/mediatools \
-    && git checkout 670d3bbcf2ce33e077ec247daa740f4c6c200539 \
+    && git checkout 6d01b3bb23f04cb6d9dc378983b038f2ff000301 \
     && make -j$(nproc) install \
     && rm -rf /opt/cli_intensities \
     && rm -rf /opt/mediatools \
